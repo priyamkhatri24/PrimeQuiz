@@ -1,0 +1,15 @@
+{
+  "name": "jsquiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "author": "Priyam Khatri",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "parcel": "^1.12.4"
+  }
+}

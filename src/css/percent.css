@@ -1,0 +1,28 @@
+#graph div {
+  margin: 800px;
+  width: 220px;
+  height: 220px;
+  position: relative;
+}
+#graph canvas {
+  display: flex;
+  top: 0px;
+  left: 640px;
+  z-index: 10;
+}
+#graph span {
+  color: #555;
+  display: none;
+  line-height: 220px;
+  text-align: center;
+  width: 220px;
+  font-family: sans-serif;
+  font-size: 40px;
+  font-weight: 100;
+  margin-left: 5px;
+  z-index: 1;
+}
+
+#graph input {
+  width: 200px;
+}
