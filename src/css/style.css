@@ -251,6 +251,9 @@ body {
 .stats__percentage__column {
   margin: 0px 10px;
 }
+.stats__percentage__column p {
+  margin: 15px auto;
+}
 .mid__sep {
   width: 150px;
   min-width: 150px;

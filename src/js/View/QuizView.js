@@ -8,6 +8,8 @@ class Quiz {
   #index = 0;
   #selectedValues = [];
   #data;
+  #quizPlayed = 0;
+
   loadData(data) {
     this.#data = data;
   }
@@ -37,6 +39,10 @@ class Quiz {
       "afterbegin",
       this._generateQuizMarkup.call(this, data)
     );
+    if (this.#index === data.questions.length - 1) {
+      this.#questionDisplay.querySelector(".next__text").textContent =
+        "Submit Quiz";
+    }
   }
 
   _generateQuizMarkup(data = this.#data, i = this.#index) {
@@ -70,15 +76,12 @@ class Quiz {
       `;
   }
   submitQuizHandler(data = this.#data) {
-    this.#questionDisplay.querySelector(".next__text").textContent =
-      "Submit Quiz";
-    if (this.#index === data.questions.length - 1) {
-      this.#clearQuestion();
-      this.#afterSubmit.insertAdjacentHTML(
-        "afterbegin",
-        this._generateScoreMarkup.call(this, data)
-      );
-    }
+    this.#clearQuestion();
+    this.#afterSubmit.insertAdjacentHTML(
+      "afterbegin",
+      this._generateScoreMarkup.call(this, data)
+    );
+    this.#quizPlayed++;
   }
 
   renderNextQuestion(data = this.#data) {
@@ -97,6 +100,7 @@ class Quiz {
       // this.#index++;
       return;
     }
+
     this.#index++;
     this.displayQuestions(data);
   }
@@ -120,7 +124,9 @@ class Quiz {
       (ele, i) => ele === data.questions[i].correct_option
     );
     ansArray.forEach((ele) => {
-      if (ele) data.score = data.score + 2;
+      if (ele) {
+        data.score = data.score + 2;
+      }
     });
 
     return `
@@ -138,10 +144,14 @@ class Quiz {
         `;
       })}
     </div>
-    <div class="button home__btn">
-      <button><a style="color: white; text-decoration: none" href="">Home</a></button>
-    </div>
+    <a style="color: white; text-decoration: none" href=""><div class="button home__btn">
+            <button>Home</button>
+        </div></a>
     `;
+  }
+
+  quizPlayedData() {
+    return this.#quizPlayed;
   }
 }
 
