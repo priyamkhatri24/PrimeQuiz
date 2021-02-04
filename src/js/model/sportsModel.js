@@ -1,4 +1,4 @@
-// This file contains the data for the project.
+// This file contains the sports quiz data for the project.
 
 export const sports = {
   genre: "SPORTS",
@@ -35,7 +35,7 @@ export const sports = {
     },
     {
       question:
-        "TWho was the first Indian International Cricket Council President?",
+        "Who was the first Indian International Cricket Council President?",
       a_option: "Sunil Gavaskar",
       b_option: "Sharad Pawar",
       c_option: "Jag Mohan Dalmiya",

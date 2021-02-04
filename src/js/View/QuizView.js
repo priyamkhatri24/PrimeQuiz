@@ -1,7 +1,7 @@
 import "core-js/stable";
 
-class Sports {
-  #iconElement = document.querySelector(".sports");
+class Quiz {
+  #iconElements = document.querySelectorAll(".genre-circle");
   #questionDisplay = document.querySelector(".question-display");
   #homeDisplay = document.querySelector(".home-display");
   #afterSubmit = document.querySelector(".after__submit");
@@ -12,8 +12,13 @@ class Sports {
     this.#data = data;
   }
   startQuiz(handler) {
-    this.#iconElement.addEventListener("click", function (e) {
-      handler();
+    this.#iconElements.forEach((ele) => {
+      ele.addEventListener("click", function (e) {
+        const genreString = [
+          ...e.currentTarget.children,
+        ][0].textContent.toUpperCase();
+        handler(genreString);
+      });
     });
   }
   #clearHome() {
@@ -117,10 +122,12 @@ class Sports {
     ansArray.forEach((ele) => {
       if (ele) data.score = data.score + 2;
     });
-    console.log(ansArray);
+
     return `
     <div class="final__score">
-      <h3>YOU SCORED: <span class="score">${data.score}</span>/10</h3>
+      <h3>YOU SCORED: <span class="score">${data.score}</span>/${
+      data.questions.length * 2
+    }</h3>
     </div>
    <div class="score__plates">
       ${data.questions.map((_, index) => {
@@ -138,4 +145,4 @@ class Sports {
   }
 }
 
-export default new Sports();
+export default new Quiz();
