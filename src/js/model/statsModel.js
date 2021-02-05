@@ -5,12 +5,12 @@ export const state = {
   correctAnswer: 0,
   wrongAnswer: 0,
 };
-export const storeData = function () {
+export const storeData = function (state) {
   localStorage.setItem("stats", JSON.stringify(state));
 };
 
 export const getData = function () {
-  const data = JSON.parse(localStorage.getItem("stats"));
+  return JSON.parse(localStorage.getItem("stats"));
 };
 
 export const clearAllStats = function () {

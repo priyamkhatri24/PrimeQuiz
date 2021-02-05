@@ -8,7 +8,11 @@ class Quiz {
   #index = 0;
   #selectedValues = [];
   #data;
-  #quizPlayed = 0;
+  #stats = {
+    quizPlayed: 0,
+    correctAnswer: 0,
+    wrongAnswer: 0,
+  };
 
   loadData(data) {
     this.#data = data;
@@ -75,16 +79,16 @@ class Quiz {
     
       `;
   }
-  submitQuizHandler(data = this.#data) {
+  submitQuizHandler(data = this.#data, stats) {
     this.#clearQuestion();
     this.#afterSubmit.insertAdjacentHTML(
       "afterbegin",
-      this._generateScoreMarkup.call(this, data)
+      this._generateScoreMarkup.call(this, stats, data)
     );
-    this.#quizPlayed++;
+    stats.quizPlayed++;
   }
 
-  renderNextQuestion(data = this.#data) {
+  renderNextQuestion(handler, stats, data = this.#data) {
     const optionList = this.#questionDisplay.querySelectorAll(".ooption");
     // prettier-ignore
     const selectedValueNode = [...optionList].find((ele) => ele.classList.contains("selected"));
@@ -96,8 +100,8 @@ class Quiz {
     this.#selectedValues.push(selectedValue);
 
     if (this.#index === data.questions.length - 1) {
-      this.submitQuizHandler(data);
-      // this.#index++;
+      this.submitQuizHandler(data, stats);
+      this.storeStats(handler);
       return;
     }
 
@@ -119,14 +123,16 @@ class Quiz {
     });
   }
 
-  _generateScoreMarkup(data = this.#data) {
+  _generateScoreMarkup(stats, data = this.#data) {
     const ansArray = this.#selectedValues.map(
       (ele, i) => ele === data.questions[i].correct_option
     );
     ansArray.forEach((ele) => {
       if (ele) {
         data.score = data.score + 2;
+        stats.correctAnswer++;
       }
+      if (!ele) stats.wrongAnswer++;
     });
 
     return `
@@ -136,22 +142,23 @@ class Quiz {
     }</h3>
     </div>
    <div class="score__plates">
-      ${data.questions.map((_, index) => {
-        return `
+      ${data.questions
+        .map((_, index) => {
+          return `
         <div class="score_plate ${ansArray[index] ? "correct" : "wrong"}">
           <p>question ${index + 1} ${ansArray[index] ? "✔" : "❌"} </p>
         </div>
         `;
-      })}
+        })
+        .join("")}
     </div>
     <a style="color: white; text-decoration: none" href=""><div class="button home__btn">
             <button>Home</button>
         </div></a>
     `;
   }
-
-  quizPlayedData() {
-    return this.#quizPlayed;
+  storeStats(handler) {
+    handler();
   }
 }
 

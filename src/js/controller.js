@@ -2,7 +2,7 @@ import { sports } from "./model/sportsModel.js";
 import { mythology } from "./model/mythologyModel.js";
 import { polity } from "./model/polityModel.js";
 import { bollywood } from "./model/bollywoodModel.js";
-import { statsModel } from "./model/statsModel.js";
+import * as statsModel from "./model/statsModel.js";
 import Quiz from "./View/QuizView.js";
 import Stats from "./View/statsView.js";
 import { percentCircle } from "./View/percent.js";
@@ -15,24 +15,23 @@ const controlStartQuiz = function (genre) {
   Quiz.displayQuestions();
 };
 
-const controlNextQuestions = function () {
-  Quiz.renderNextQuestion();
+const controlNextQuestions = function (handler) {
+  Quiz.renderNextQuestion(handler, statsModel.state);
 };
 
 const controlStats = function () {
-  Stats.statsDisplay();
+  Stats.statsDisplay(statsModel.state);
   percentCircle();
 };
 
+const storeStatsControl = function () {
+  statsModel.storeData(statsModel.state);
+};
+
 const init = function () {
+  if (statsModel.getData()) statsModel.state = statsModel.getData();
   Quiz.startQuiz(controlStartQuiz);
-  Quiz.quizFlowHandler(controlNextQuestions);
+  Quiz.quizFlowHandler(controlNextQuestions.bind(this, storeStatsControl));
   Stats.statsClickHandler(controlStats);
 };
 init();
-
-// export const state = {
-//   quizPlayed: 0,
-//   correctAnswer: 0,
-//   wrongAnswer: 0,
-// };

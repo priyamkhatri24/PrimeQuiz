@@ -17,34 +17,42 @@ class Stats {
     this.#afterSubmit.innerHTML = "";
     this.#questionDisplay.innerHTML = "";
     this.#homeDisplay.innerHTML = "";
+    this.#parentEl.innerHTML = "";
   }
-  statsDisplay() {
+  statsDisplay(stats) {
     this.#clearAll();
     this.#parentEl.insertAdjacentHTML(
       "afterbegin",
-      this.#generateStatsMarkup.call(this)
+      this.#generateStatsMarkup.call(this, stats)
     );
   }
-  #generateStatsMarkup(percentage = 12) {
+  #generateStatsMarkup(stats) {
+    const percent =
+      ((stats?.correctAnswer || 0) * 100) /
+      ((stats?.correctAnswer || 0) + (stats?.wrongAnswer || 0));
     return `
     <div class="stats__heading">
         <h3>STATS</h3>
         </div>
         <div class="stats">
             <div class="stats__numerical__column">
-            <p>Quizes Played: <span>12</span></p>
-            <p>Correct Answers: <span>72</span></p>
-            <p>Incorrect Answers: <span>38</span></p>
+            <p>Quizes Played: <span>${stats?.quizPlayed || 0}</span></p>
+            <p>Correct Answers: <span>${stats?.correctAnswer || 0}</span></p>
+            <p>Incorrect Answers: <span>${stats?.wrongAnswer || 0}</span></p>
             </div>
             <div class="mid__sep"></div>
             <div class="stats__percentage__column">
-            <div class="chart" id="graph" data-percent="${percentage}"></div>
-            <p>Sucess percentage: ${percentage}%</p>
+            <div class="chart" id="graph" data-percent="${
+              percent.toFixed(2) ? percent : 0
+            }"></div>
+            <p>Sucess percentage: ${
+              isFinite(percent) ? percent.toFixed(2) : 0
+            }%</p>
             </div>
         </div>
-        <a style="color: white; text-decoration: none" href=""><div class="button home__btn">
-            <button>Home</button>
-        </div></a>
+        <div class="button home__btn">
+        <a style="color: white; text-decoration: none" href=""><button>Home</button></a>
+        </div>
       `;
   }
 }
