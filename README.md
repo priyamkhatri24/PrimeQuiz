@@ -1,5 +1,7 @@
 # PrimeQuiz
 
+Project Live at: <a>primequiz.netlify.app</a>
+
 This is a Quiz Project having four genres. The project is made based on Model-View-Controller architecture.
 I have used Parcel bundler for this project.
 
