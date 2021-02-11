@@ -36,7 +36,7 @@ class Stats {
         </div>
         <div class="stats">
             <div class="stats__numerical__column">
-            <p>Quizes Played: <span>${stats?.quizPlayed || 0}</span></p>
+            <p>Quizzes Played: <span>${stats?.quizPlayed || 0}</span></p>
             <p>Correct Answers: <span>${stats?.correctAnswer || 0}</span></p>
             <p>Incorrect Answers: <span>${stats?.wrongAnswer || 0}</span></p>
             </div>
@@ -45,7 +45,7 @@ class Stats {
             <div class="chart" id="graph" data-percent="${
               percent.toFixed(2) ? percent : 0
             }"></div>
-            <p>Sucess percentage: ${
+            <p>Success percentage: ${
               isFinite(percent) ? percent.toFixed(2) : 0
             }%</p>
             </div>
