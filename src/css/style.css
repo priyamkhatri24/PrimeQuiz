@@ -315,6 +315,12 @@ body {
     width: 100%;
   }
 }
+@media (max-width: 890px) {
+  .footer {
+    position: relative;
+  }
+}
+
 @media (max-width: 950px) {
   .mid__sep {
     width: 0px;
