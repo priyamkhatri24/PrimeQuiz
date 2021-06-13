@@ -153,12 +153,15 @@ body {
 }
 .footer {
   background-color: #1d3557;
-  height: 200px;
+  width: 100%;
+  height: fit-content;
   margin-top: 60px;
   color: rgb(194, 194, 194);
   font-size: 13px;
   display: flex;
   text-align: center;
+  position: absolute;
+  bottom: 0px;
 }
 .footer span {
   color: grey;
